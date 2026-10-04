@@ -1,0 +1,50 @@
+feature_mil:
+  bag_size: 48
+  batch_size: 8
+  dropout: 0.3
+  epochs: 15
+  hidden: 128
+  logreg_C: 0.05
+  lr: 0.001
+  patience: 5
+  weight_decay: 0.01
+features:
+  backbone: resnet18
+  batch_size: 32
+  num_threads: 2
+labels:
+  mode: stage_34
+  os_months_col: OS_MONTHS
+  os_status_col: OS_STATUS
+  patient_col: auto
+  stage_col: auto
+paths:
+  clinical_file: /data/clinical/ov_tcga_clinical.tsv
+  dicom_root: /data/TCGA-OV
+  work_dir: work_smoke
+preprocess:
+  image_size: 224
+  max_thickness: 7.5
+  min_slices: 40
+  spacing_xy: 1.0
+  spacing_z: 5.0
+  window:
+  - -160
+  - 240
+train:
+  backbone: resnet18
+  bag_size: 32
+  batch_size: 2
+  epochs: 40
+  eval_bag_size: 64
+  freeze_backbone: false
+  lr_backbone: 0.0001
+  lr_head: 0.001
+  n_repeats: 2
+  n_splits: 3
+  num_workers: 4
+  patience: 10
+  pretrained: true
+  seed: 42
+  val_fraction: 0.2
+  weight_decay: 0.0001

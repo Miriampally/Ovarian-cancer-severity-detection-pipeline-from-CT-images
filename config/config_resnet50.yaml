@@ -1,0 +1,51 @@
+paths:
+  dicom_root: D:/2026/Alliance university/Data Set/TCGA Data set/manifest-uUyFk5Zb8576952400198219227/TCGA-OV
+  clinical_file: D:/2026/Alliance university/Aug Sept 2026/OV severity detction/data_clinical_patient.txt
+  work_dir: ./work
+  results_dir: results_resnet50
+preprocess:
+  spacing_xy: 1.0
+  spacing_z: 5.0
+  min_slices: 40
+  max_thickness: 7.5
+  window:
+  - -160
+  - 240
+  image_size: 224
+labels:
+  mode: os_24m
+  patient_col: auto
+  stage_col: auto
+  os_months_col: OS_MONTHS
+  os_status_col: OS_STATUS
+train:
+  backbone: resnet18
+  pretrained: true
+  freeze_backbone: false
+  n_splits: 5
+  n_repeats: 3
+  epochs: 40
+  patience: 10
+  batch_size: 2
+  bag_size: 32
+  eval_bag_size: 64
+  lr_backbone: 0.0001
+  lr_head: 0.001
+  weight_decay: 0.0001
+  val_fraction: 0.15
+  num_workers: 4
+  seed: 42
+features:
+  backbone: resnet50
+  batch_size: 32
+  num_threads: 4
+feature_mil:
+  hidden: 128
+  dropout: 0.3
+  epochs: 100
+  patience: 15
+  batch_size: 8
+  bag_size: 48
+  lr: 0.001
+  weight_decay: 0.01
+  logreg_C: 0.05
